@@ -5,11 +5,7 @@ using UniversityWebApi.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add services
-// Add services to the container.
-//var settings = builder.Configuration.GetSection("<sectionName>").Get<Settings>();
-builder.Services.AddStudentServiceInfrastructureServices(
-    new StudentService.Configurations.StudentServiceConfiguration());
-#endregion
+
 #region Serlog
 
 var logger = new LoggerConfiguration()
@@ -20,6 +16,13 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
 #endregion
+
+// Add services to the container.
+//var settings = builder.Configuration.GetSection("<sectionName>").Get<Settings>();
+builder.Services.AddStudentServiceInfrastructureServices(
+    new StudentService.Configurations.StudentServiceConfiguration());
+#endregion
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

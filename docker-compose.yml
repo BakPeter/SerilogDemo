@@ -1,8 +1,30 @@
-version: '3.4'
+version: "3.4"
 
 services:
+  seqService:
+    image: datalust/seq:latest
+    container_name: seqLoggerService
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 8081:80
+      - 5341:5341
+    networks:
+      - main
+
   universitywebapi:
     image: ${DOCKER_REGISTRY-}universitywebapi
     build:
       context: .
       dockerfile: UniversityWebApi/Dockerfile
+    container_name: studentWebApi
+    depends_on:
+      - seqService
+    ports:
+      - 8080:80
+    networks:
+      - main
+
+networks:
+  main:
+    name: serilogDemoNetwork
